@@ -3,7 +3,7 @@ import random
 import time
 
 SPEED = 0.09
-STARTING_POSITION = (0, -300)
+STARTING_POSITION = (0, -200)
 
 
 class Ball(Turtle):
@@ -33,6 +33,8 @@ class Ball(Turtle):
     def bounce_y(self):
         """makes Ball bounce off by changing direction on y-axis """
         self.y_move *= -1
+        left_or_right = [-1, -0.9, -0.8, -0.7, 0.7, 0.8, 0.9, 1]
+        self.x_move = 15 * random.choice(left_or_right)
 
     def bounce_x(self):
         """makes Ball bounce off by changing direction on x-axis """
@@ -44,4 +46,4 @@ class Ball(Turtle):
         self.setpos(STARTING_POSITION)
         self.bounce_y()
         left_or_right = [-1, -0.9, -0.8, -0.7, 0.7, 0.8, 0.9, 1]
-        self.x_move = 10 * random.choice(left_or_right)
+        self.x_move = 15 * random.choice(left_or_right)

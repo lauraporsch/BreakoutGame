@@ -1,6 +1,7 @@
 from turtle import Turtle
 
 COLORS = ["red", "orange", "yellow", "green", "blue", "purple"]
+NUMBER_OF_BRICKS = 17
 
 
 class BricksManager:
@@ -11,12 +12,14 @@ class BricksManager:
         self.lines_of_bricks = range(len(COLORS))
         self.brick_x = pos_x
         self.brick_y = pos_y
+        # allows changing wall of bricks by simply changing constants
         for color in self.lines_of_bricks:
-            for bricks in range(17):
+            for bricks in range(NUMBER_OF_BRICKS):
                 self.create_brick(position=(self.brick_x, self.brick_y), brick_color=COLORS[self.index])
                 self.brick_x += 70
             self.index += 1
             self.brick_y -= 40
+            # indents every second block by 30 pixels
             if color % 2 != 0:
                 self.brick_x = pos_x
             else:

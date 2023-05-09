@@ -9,6 +9,8 @@ class Scoreboard(Turtle):
         on Screen by calling update_scoreboard"""
         super().__init__()
         self.score = 0
+        with open("data.txt") as data:
+            self.high_score = int(data.read())
         self.color("white")
         self.hideturtle()
         self.penup()
@@ -18,7 +20,7 @@ class Scoreboard(Turtle):
     def update_scoreboard(self):
         """clears ScoreBoard and writes new ScoreBoard with current score"""
         self.clear()
-        self.write(f"Score: {self.score}", align="left", font=FONT)
+        self.write(f"Score: {self.score} | High Score: {self.high_score}", align="left", font=FONT)
 
     def increase_score(self):
         """increases current score by one, calls update_scoreboard to show current score on Screen"""
@@ -29,3 +31,13 @@ class Scoreboard(Turtle):
         """shows banner with YOU WIN on middle of Screen"""
         self.goto(0, 0)
         self.write("YOU WIN", align="center", font=FONT)
+
+    def update_high_score(self):
+        """updates the high score, if current score is higher than saved high score"""
+        if self.score > self.high_score:
+            self.high_score = self.score
+            with open("data.txt", mode="w") as file:
+                file.write(str(self.score))
+            self.score = 0
+            self.update_scoreboard()
+

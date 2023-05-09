@@ -6,7 +6,7 @@ class Paddle(Turtle):
     def __init__(self):
         super().__init__()
         self.shape("square")
-        self.shapesize(stretch_wid=0.5, stretch_len=10)
+        self.shapesize(stretch_wid=0.5, stretch_len=8)
         # hinder to draw on screen, when moving
         self.penup()
         self.color("white")

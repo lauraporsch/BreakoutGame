@@ -37,7 +37,7 @@ def play_game():
         time.sleep(ball.move_speed)
         screen.update()
         ball.move()
-        # makes ball bounce off upper screen limit and paddle
+        # makes ball bounce off upper screen limit
         if ball.ycor() > 370:
             ball.bounce_y()
         if ball.ycor() < -270 and ball.distance(paddle) < 50:
@@ -60,10 +60,12 @@ def play_game():
         if life_board.lives == 0:
             life_board.game_over()
             game_is_on = False
+            scoreboard.update_high_score()
         # triggers Win Game function when no bricks left
         if not bricks_manager.all_bricks:
             scoreboard.win_game()
             game_is_on = False
+            scoreboard.update_high_score()
 
 
 play_game()

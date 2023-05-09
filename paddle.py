@@ -4,7 +4,7 @@ Y_POSITION = -300
 PADDLE_SIZE = 60
 PADDLE_PARTS = []
 # create a list of starting positions to create a paddle out of single segments (better detection of distance to paddle)
-for x_position in range(-PADDLE_SIZE, PADDLE_SIZE, 10):
+for x_position in range(-PADDLE_SIZE, PADDLE_SIZE + 10, 10):
     new_part = (x_position, Y_POSITION)
     PADDLE_PARTS.append(new_part)
 

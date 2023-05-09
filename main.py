@@ -42,9 +42,11 @@ def play_game():
         if ball.ycor() > 370:
             ball.bounce_y()
         # makes ball bounce off paddle
-        if ball.ycor() < -270 and ball.distance(paddle) < 50:
-            ball.bounce_y()
-            # print(ball.distance(paddle))
+        for part in paddle.parts:
+            if ball.distance(part) < 40 and ball.ycor() < -270:
+                ball.bounce_y()
+                # break to hinder ball from bouncing on paddle several times
+                break
         # makes ball bounce off side screen limits
         if ball.xcor() > 580 or ball.xcor() < -580:
             ball.bounce_x()

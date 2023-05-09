@@ -32,6 +32,7 @@ screen.onkeypress(paddle.go_left, "Left")
 
 def play_game():
     game_is_on = True
+    hit_bricks = 0
     while game_is_on:
         # screen sleeps for time that the ball takes to move from one position to the next
         time.sleep(ball.move_speed)
@@ -40,8 +41,10 @@ def play_game():
         # makes ball bounce off upper screen limit
         if ball.ycor() > 370:
             ball.bounce_y()
+        # makes ball bounce off paddle
         if ball.ycor() < -270 and ball.distance(paddle) < 50:
             ball.bounce_y()
+            # print(ball.distance(paddle))
         # makes ball bounce off side screen limits
         if ball.xcor() > 580 or ball.xcor() < -580:
             ball.bounce_x()
@@ -49,6 +52,7 @@ def play_game():
         if ball.ycor() < -350:
             life_board.decrease_lives()
             ball.reset_position()
+            paddle.center_paddle()
         # detects when ball hits brick
         for brick in bricks_manager.all_bricks:
             if ball.distance(brick) < 40:
@@ -56,6 +60,10 @@ def play_game():
                 bricks_manager.all_bricks.remove(brick)
                 scoreboard.increase_score()
                 ball.bounce_y()
+                hit_bricks += 1
+                # increase ball speed every time after 10 blocks got removed up to a maximum
+                if ball.move_speed > 0.04 and hit_bricks != 0 and hit_bricks % 10 == 0:
+                    ball.increase_speed()
         # triggers Game Over function when no lives left
         if life_board.lives == 0:
             life_board.game_over()

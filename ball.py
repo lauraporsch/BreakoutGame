@@ -2,9 +2,9 @@ from turtle import Turtle
 import random
 import time
 
-SPEED = 0.09
+STARTING_SPEED = 0.09
 STARTING_POSITION = (0, -200)
-
+LEFT_OR_RIGHT = [-1, -0.9, -0.8, -0.7, -0.5, -0.3, 0, 0.3, 0.5, 0.7, 0.8, 0.9, 1]
 
 class Ball(Turtle):
     def __init__(self):
@@ -17,12 +17,11 @@ class Ball(Turtle):
         self.penup()
         self.setpos(STARTING_POSITION)
         self.y_move = 15
-        # list of different directions and angles
-        left_or_right = [-1, -0.9, -0.8, -0.7, 0.7, 0.8, 0.9, 1]
-        self.x_move = 15 * random.choice(left_or_right)
+        # randomise angle that the ball bounces off
+        self.x_move = 15 * random.choice(LEFT_OR_RIGHT)
         # sets time that screen sleeps -> impression of moving ball (while actually just slowly changing coordinates)
         # the smaller move_speed, the faster the ball
-        self.move_speed = SPEED
+        self.move_speed = STARTING_SPEED
 
     def move(self):
         """makes Ball move on screen by constantly changing coordinates"""
@@ -33,8 +32,8 @@ class Ball(Turtle):
     def bounce_y(self):
         """makes Ball bounce off by changing direction on y-axis """
         self.y_move *= -1
-        left_or_right = [-1, -0.9, -0.8, -0.7, 0.7, 0.8, 0.9, 1]
-        self.x_move = 15 * random.choice(left_or_right)
+        left_or_right = [-1, -0.9, -0.8, -0.7, 0, 0.7, 0.8, 0.9, 1]
+        self.x_move = 15 * random.choice(LEFT_OR_RIGHT)
 
     def bounce_x(self):
         """makes Ball bounce off by changing direction on x-axis """
@@ -45,5 +44,8 @@ class Ball(Turtle):
         time.sleep(1)
         self.setpos(STARTING_POSITION)
         self.bounce_y()
-        left_or_right = [-1, -0.9, -0.8, -0.7, 0.7, 0.8, 0.9, 1]
-        self.x_move = 15 * random.choice(left_or_right)
+        left_or_right = [-1, -0.9, -0.8, -0.7, 0, 0.7, 0.8, 0.9, 1]
+        self.x_move = 15 * random.choice(LEFT_OR_RIGHT)
+
+    def increase_speed(self):
+        self.move_speed *= 0.9

@@ -29,3 +29,7 @@ class Paddle(Turtle):
         else:
             new_xcor = self.xcor() - 30
             self.goto(y=self.ycor(), x=new_xcor)
+
+    def center_paddle(self):
+        """resets paddle position to center"""
+        self.goto(0, -300)

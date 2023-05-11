@@ -42,9 +42,24 @@ def start_playing():
             if ball.ycor() > 370:
                 ball.bounce_y()
             # makes ball bounce off paddle
+            middle_paddle = paddle.parts[int(len(paddle.parts)/2)]
+            quarter_paddle = paddle.parts[int(len(paddle.parts)/4)]
+            left_paddle = paddle.parts.index(middle_paddle) - paddle.parts.index(quarter_paddle)
+            right_paddle = paddle.parts.index(middle_paddle) + paddle.parts.index(quarter_paddle)
             for part in paddle.parts:
                 if ball.distance(part) < 40 and ball.ycor() < -270:
-                    ball.bounce_y()
+                    if paddle.parts.index(part) < paddle.parts.index(middle_paddle):
+                        if paddle.parts.index(part) < left_paddle:
+                            ball.bounce_y_left_wide()
+                        elif paddle.parts.index(part) >= left_paddle:
+                            ball.bounce_y_left_narrow()
+                    elif paddle.parts.index(part) > paddle.parts.index(middle_paddle):
+                        if paddle.parts.index(part) > right_paddle:
+                            ball.bounce_y_right_wide()
+                        elif paddle.parts.index(part) <= right_paddle:
+                            ball.bounce_y_right_narrow()
+                    else:
+                        ball.bounce_y_straight()
                     # break to hinder ball from bouncing on paddle several times
                     break
             # makes ball bounce off side screen limits
@@ -61,10 +76,10 @@ def start_playing():
                     brick.hideturtle()
                     bricks_manager.all_bricks.remove(brick)
                     scoreboard.increase_score()
-                    ball.bounce_y()
+                    ball.bounce_y_random()
                     hit_bricks += 1
                     # increase ball speed every time after 10 blocks got removed up to a maximum
-                    if ball.move_speed > 0.04 and hit_bricks != 0 and hit_bricks % 10 == 0:
+                    if ball.move_speed > 0.015 and hit_bricks != 0 and hit_bricks % 10 == 0:
                         ball.increase_speed()
             # triggers Game Over function when no lives left
             if life_board.lives == 0:
@@ -75,10 +90,9 @@ def start_playing():
             if not bricks_manager.all_bricks:
                 scoreboard.win_game()
                 game_is_on = False
-                scoreboard.update_high_score()
 
     play_game()
-
+    # keep screen open until exit button is clicked
     screen.exitonclick()
 
 
@@ -87,5 +101,5 @@ popup = PopUp()
 if popup.start_game():
     start_playing()
 
-# keep screen open until exit button is triggered
+
 

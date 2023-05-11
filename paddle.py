@@ -1,7 +1,7 @@
 from turtle import Turtle
 
 Y_POSITION = -300
-PADDLE_SIZE = 60
+PADDLE_SIZE = 100
 PADDLE_PARTS = []
 # create a list of starting positions to create a paddle out of single segments (better detection of distance to paddle)
 for x_position in range(-PADDLE_SIZE, PADDLE_SIZE + 10, 10):

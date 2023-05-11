@@ -6,6 +6,7 @@ STARTING_SPEED = 0.09
 STARTING_POSITION = (0, -200)
 LEFT_OR_RIGHT = [-1, -0.9, -0.8, -0.7, -0.5, -0.3, 0, 0.3, 0.5, 0.7, 0.8, 0.9, 1]
 
+
 class Ball(Turtle):
     def __init__(self):
         """initiates class Ball, inherits from Turtle super class, sets shape and color of Ball, sets ball movement to
@@ -30,22 +31,56 @@ class Ball(Turtle):
         self.goto(new_x, new_y)
 
     def bounce_y(self):
-        """makes Ball bounce off by changing direction on y-axis """
+        """makes Ball bounce off by changing direction on y-axis, gets called when Ball hits upper screen limit"""
         self.y_move *= -1
-        left_or_right = [-1, -0.9, -0.8, -0.7, 0, 0.7, 0.8, 0.9, 1]
+
+    def bounce_y_random(self):
+        """makes Ball bounce off by changing direction on y-axis, random angle for x-axis, gets called when Ball hits
+        a brick """
+        self.y_move *= -1
         self.x_move = 15 * random.choice(LEFT_OR_RIGHT)
 
+    def bounce_y_straight(self):
+        """makes Ball bounce off by changing direction on y-axis, straight off x-axis, gets called when Ball hits middle
+        part of paddle"""
+        self.y_move *= -1
+        self.x_move = 0
+
+    def bounce_y_left_wide(self):
+        """Ball bounces off by changing direction on y-axis, Ball bounces with wide angle towards left on x-axis, gets
+        called when Ball hits far left side of paddle"""
+        self.y_move *= -1
+        self.x_move = 15 * random.choice([-1, -0.9, -0.8, -0.7])
+
+    def bounce_y_left_narrow(self):
+        """Ball bounces off by changing direction on y-axis, Ball bounces with narrow angle towards left on x-axis, gets
+        called when Ball hits middle left side of paddle"""
+        self.y_move *= -1
+        self.x_move = 15 * random.choice([-0.5, -0.3, -0.2])
+
+    def bounce_y_right_wide(self):
+        """Ball bounces off by changing direction on y-axis, Ball bounces with wide angle towards right on x-axis, gets
+        called when Ball hits far right side of paddle"""
+        self.y_move *= -1
+        self.x_move = 15 * random.choice([0.7, 0.8, 0.9, 1])
+
+    def bounce_y_right_narrow(self):
+        """Ball bounces off by changing direction on y-axis, Ball bounces with narrow angle towards right on x-axis, gets
+        called when Ball hits middle right side of paddle"""
+        self.y_move *= -1
+        self.x_move = 15 * random.choice([0.2, 0.3, 0.5])
+
     def bounce_x(self):
-        """makes Ball bounce off by changing direction on x-axis """
+        """Ball bounces off by changing direction on x-axis, gets called when Ball hits side limit of screen"""
         self.x_move *= -1
 
     def reset_position(self):
-        """ball starts moving from initial position with random movement along x_axis"""
+        """Ball starts moving from initial position with random movement along x_axis"""
         time.sleep(1)
         self.setpos(STARTING_POSITION)
-        self.bounce_y()
-        left_or_right = [-1, -0.9, -0.8, -0.7, 0, 0.7, 0.8, 0.9, 1]
+        self.bounce_y_random()
         self.x_move = 15 * random.choice(LEFT_OR_RIGHT)
 
     def increase_speed(self):
+        """multiplies current move_speed with 0.9 to increase speed"""
         self.move_speed *= 0.9

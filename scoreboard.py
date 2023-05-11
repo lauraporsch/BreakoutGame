@@ -30,7 +30,7 @@ class Scoreboard(Turtle):
     def win_game(self):
         """shows banner with YOU WIN on middle of Screen"""
         self.goto(0, 0)
-        self.write("YOU WIN", align="center", font=FONT)
+        self.write(f"YOU WIN\nYour score is {self.score}", align="justify", font=FONT)
 
     def update_high_score(self):
         """updates the high score, if current score is higher than saved high score"""

@@ -1,8 +1,7 @@
 from turtle import Turtle
 
 COLORS = ["#FFADAD", "#FFD6A5", "#FDFFB6", "#CAFFBF", "#9BF6FF", "#BDB2FF"]
-NUMBER_OF_BRICKS_ROW = 17
-
+NUMBER_OF_BRICKS_ROW = 5
 
 
 class BricksManager:
